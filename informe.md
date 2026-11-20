@@ -150,3 +150,8 @@ Las 12 incógnitas de la corrida con pivoteo escalado tienen entre **10 y 13 dí
 
 ## 10. Reproducibilidad
 
+- Python 3.13.2; numpy 2.3.1; mpmath 1.3.0 (`requirements.txt`; `fractions` y `csv` son de la biblioteca estándar).
+- Comando: `pip install -r requirements.txt && python src/main.py` (reproduce todo `resultados/` sin intervención manual; los archivos generados son idénticos entre corridas).
+- No se usa ninguna rutina de biblioteca para resolver: `numpy.linalg.solve`, `numpy.linalg.cond` y `numpy.linalg.svd` se usan solo como control y diagnóstico en `main.py`.
+
+
