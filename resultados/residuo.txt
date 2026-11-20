@@ -1,0 +1,55 @@
+RESIDUO r = b - A x EN PRECISION EXTENDIDA (fractions: aritmetica racional exacta)
+
+A y b se leen como decimales exactos; x (double) se convierte a fraccion sin perdida.
+
+Norma infinito del residuo por estrategia:
+  sin pivoteo                  ||r||_inf = 1.77175e-7   error relativo vs exacta = 2.08026e-10   error inverso normwise = 8.32e-15
+  pivoteo parcial              ||r||_inf = 5.37295e-10   error relativo vs exacta = 5.5201e-13   error inverso normwise = 2.52e-17
+  pivoteo parcial escalado     ||r||_inf = 2.29088e-10   error relativo vs exacta = 2.3573e-13   error inverso normwise = 1.08e-17
+
+Componentes del residuo (pivoteo parcial escalado, antes de refinar), 12 cifras:
+  r[ 1] =     -8.07688876628e-21
+  r[ 2] =      -8.7291144646e-13
+  r[ 3] =     -3.59296416666e-18
+  r[ 4] =      4.39702913989e-12
+  r[ 5] =      -8.9223300496e-20
+  r[ 6] =       2.2908764385e-10
+  r[ 7] =     -1.39074653608e-17
+  r[ 8] =      3.11376351594e-11
+  r[ 9] =     -1.80290930614e-20
+  r[10] =      -3.5666339052e-12
+  r[11] =      9.88551124167e-18
+  r[12] =      5.16308000963e-11
+
+Refinamiento iterativo (r exacto; correccion con L y U reutilizadas, sin refactorizar):
+  pasada      ||r||_inf  ||delta||_inf   error rel. vs exacta
+       0      2.291e-10              -              2.357e-13
+       1      1.366e-22      6.709e-13              6.174e-26
+       2      3.928e-35      1.757e-25              1.614e-38
+       3      1.383e-48      4.593e-38              4.224e-51
+       4      5.374e-61      1.202e-50              1.068e-63
+       5      6.298e-73       3.14e-63                    0.0
+       6      7.963e-86       8.22e-76                    0.0
+
+Control con numpy.linalg.solve (solo control): error relativo vs exacta = 2.548e-13
+
+ANEXO A. Estabilidad de las tres corridas (mismo codigo, misma factorizacion reutilizada)
+  estrategia                      mult max mult max esc.  crecimiento  err norma  err comp. bits perd.  digitos (min-max)
+  sin pivoteo                    2.753e+13     6.918e+03    2.641e+03   2.08e-10    7.51e-8      20.84         7-10      
+  pivoteo parcial                6.199e-01     8.225e+00    1.000e+00   5.52e-13    2.0e-10      12.28         9-12      
+  pivoteo parcial escalado       2.466e+09     9.621e-01    1.783e+00   2.36e-13   8.54e-11      11.05        10-13      
+  (mult max esc. = max |m(i,k)|*s_k/s_i: el multiplicador del sistema con filas equilibradas)
+
+ANEXO B. Condicionamiento
+  kappa_1(A)   estimado (Hager, reutiliza L y U) = 4.4675e+13   control numpy = 4.4675e+13
+  kappa_2(A)   control numpy                     = 3.0847e+13
+  kappa_1(D A) estimado (Hager)                  = 3.3967e+04   control numpy = 3.3967e+04
+  kappa_2(D A) control numpy                     = 8.1323e+03   (D = diag(1/max_j |a_ij|))
+  kappa_2(A) * eps = 6.849e-03   kappa_1(A) * eps = 9.920e-03   (eps = 2^-52)
+  kappa_2(DA) * eps = 1.806e-12   kappa_1(DA) * eps = 7.542e-12
+
+ANEXO C. Casi dependencia lineal (filas normalizadas a norma 2 = 1, ajuste por minimos cuadrados)
+  F7 ~ +0.9888*F3 +1.1402*F5   residuo relativo = 2.283e-03
+  F5 ~ -0.8672*F3 +0.8770*F7   residuo relativo = 2.003e-03
+  F3 ~ -1.1531*F5 +1.0113*F7   residuo relativo = 2.309e-03
+  Valores singulares de D A (control numpy): mayor = 3.9284e+00, menor = 4.8306e-04
