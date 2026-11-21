@@ -2,7 +2,7 @@
 
 Resuelve un sistema lineal denso de 12 incógnitas por eliminación gaussiana propia (una sola factorización P·A = L·U), con conteo instrumentado de operaciones, pivoteo parcial escalado y verificación en precisión extendida.
 
-**Autoría:** <Andy Rivera Olguin> · Computación Numérica (INF-321), Ingeniería Civil Informática, UCM · 
+**Autoría:** Andy Rivera Olguin · Computación Numérica (INF-321), Ingeniería Civil Informática, UCM · 
 
 ## Requisitos
 
