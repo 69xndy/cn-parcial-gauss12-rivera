@@ -2,12 +2,12 @@
 
 Resuelve un sistema lineal denso de 12 incógnitas por eliminación gaussiana propia (una sola factorización P·A = L·U), con conteo instrumentado de operaciones, pivoteo parcial escalado y verificación en precisión extendida.
 
-**Autoría:** Andy Rivera Olguin · Computación Numérica (INF-321), Ingeniería Civil Informática, UCM · 
+**Autoría:** Andy Rivera Olguin · Computación Numérica (INF-321), Ingeniería Civil Informática, UCM.
 
 ## Requisitos
 
-- Python 3.10 o superior (probado con 3.13.2).
-- Instalación: `pip install -r requirements.txt` (numpy 2.3.1 y mpmath 1.3.0).
+- Python 3.10 o superior (probado con 3.14.4).
+- Instalación: `pip install -r requirements.txt` (numpy 2.5.5 y mpmath 1.4.1).
 
 ## Ejecución
 

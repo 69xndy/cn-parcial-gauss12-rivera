@@ -138,8 +138,7 @@ Las 12 incógnitas de la corrida con pivoteo escalado tienen entre **10 y 13 dí
 | 6 | 7.963·10⁻⁸⁶ | 8.22·10⁻⁷⁶ | < 10⁻⁶⁰ (resolución de trabajo) |
 
   Cada pasada gana ≈ 12.6 dígitos (la contracción del error es ≈ 2.6·10⁻¹³ por pasada), coherente con κ₂(D·A)·ε ≪ 1. El refinamiento **sí mejora**: de 12–13 a más de 60 dígitos.
-- **Control con biblioteca** (solo control; no sustituye la implementación propia): `numpy.linalg.solve` da un error relativo de 5.23·10⁻¹³, del mismo orden que el pivoteo parcial propio (5.52·10⁻¹³) y 2.2 veces peor que el pivoteo escalado propio (2.36·10⁻¹³).
-
+- **Control con biblioteca** (solo control; no sustituye la implementación propia): numpy.linalg.solve da un error relativo de 2.55·10⁻¹³, del mismo orden que el pivoteo escalado propio (2.36·10⁻¹³) y unas 2.2 veces menor que el del pivoteo parcial simple propio (5.52·10⁻¹³).
 ## 9. Conclusiones
 
 - **Compromiso elegido.** El núcleo de la eliminación cuesta 1354 flops con cualquier estrategia; no hay trabajo redundante que ahorrar (un multiplicador por fila, una sola factorización, sin inversa). El pivoteo escalado añade 198 comparaciones, 77 divisiones y 8 intercambios (≈ 20 % de operaciones extra frente al núcleo: 1629 vs. 1354 si se cuenta todo, +5.0 % sobre la cota de referencia con pivoteo) y reduce el error ≈ 880 veces respecto de no pivotear. Es el compromiso razonable: pagar un sobrecosto pequeño y conocido por 9.8 bits de mantisa. La estrategia más barata (sin pivoteo) no es la más estable, y aquí se verificó con cifras.
@@ -150,7 +149,7 @@ Las 12 incógnitas de la corrida con pivoteo escalado tienen entre **10 y 13 dí
 
 ## 10. Reproducibilidad
 
-- Python 3.13.2; numpy 2.3.1; mpmath 1.3.0 (`requirements.txt`; `fractions` y `csv` son de la biblioteca estándar).
+- Python 3.14.4; numpy 2.5.5; mpmath 1.4.1 (`requirements.txt`; `fractions` y `csv` son de la biblioteca estándar).
 - Comando: `pip install -r requirements.txt && python src/main.py` (reproduce todo `resultados/` sin intervención manual; los archivos generados son idénticos entre corridas).
 - No se usa ninguna rutina de biblioteca para resolver: `numpy.linalg.solve`, `numpy.linalg.cond` y `numpy.linalg.svd` se usan solo como control y diagnóstico en `main.py`.
 
