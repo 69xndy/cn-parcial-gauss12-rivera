@@ -55,8 +55,8 @@ informe.md   informe técnico y análisis de error
 
 ## Informe
 
-
+Ver [informe.md](informe.md).
 
 ## Licencia
 
-
+Trabajo académico de la asignatura INF-321 (UCM). Sin licencia de reutilización.
